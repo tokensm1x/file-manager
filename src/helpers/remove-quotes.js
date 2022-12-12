@@ -9,8 +9,9 @@ export function removeQuotes(line) {
     }
     let args = result.length > 0 ? result : [str];
     args.forEach((el) => {
-        str = str.replace(`"${el}"`, "").trim();
+        str = str.replace(`${el}`, "").replace('""', "").trim();
     });
+    console.log(args);
     if (str.length) {
         args.push(str.split(" "));
     }
