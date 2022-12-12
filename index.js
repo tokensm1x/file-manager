@@ -2,7 +2,7 @@ import { exit, chdir } from "process";
 import { showDirectory } from "./src/helpers/showCurrentDirectory.js";
 import readline from "readline";
 import { homedir } from "os";
-import { handleOs, calcHash, up, cd, ls } from "./src/handlers/index.js";
+import { handleOs, calcHash, up, cd, ls, cat, add, rn, rm } from "./src/handlers/index.js";
 import { commands } from "./src/helpers/constants.js";
 import { log } from "./src/helpers/logs.js";
 
@@ -34,7 +34,7 @@ const handleLine = async (line) => {
                 break;
             }
             case commands.cd: {
-                await cd(args.join(" "));
+                await cd(args.join());
                 break;
             }
             case commands.ls: {
@@ -42,12 +42,15 @@ const handleLine = async (line) => {
                 break;
             }
             case commands.cat: {
+                await cat(args.join());
                 break;
             }
             case commands.add: {
+                await add(args.join());
                 break;
             }
             case commands.rn: {
+                await rn(args);
                 break;
             }
             case commands.cp: {
@@ -57,6 +60,7 @@ const handleLine = async (line) => {
                 break;
             }
             case commands.rm: {
+                await rm(args.join());
                 break;
             }
             case commands.hash: {

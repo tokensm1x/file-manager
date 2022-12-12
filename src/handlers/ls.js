@@ -6,9 +6,13 @@ import { log } from "../helpers/logs.js";
 
 export async function ls() {
     try {
-        console.log(cwd());
         const path = resolve(cwd());
-        const fileList = await readdir(path);
+        const fileList = (await readdir(path, { withFileTypes: true })).map((el) => {
+            return {
+                name: el.name,
+                type: el.isDirectory() ? "directory" : "file",
+            };
+        });
         log.showTable(fileList);
         showDirectory();
     } catch (e) {
