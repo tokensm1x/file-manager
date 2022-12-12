@@ -12,10 +12,11 @@ async function up() {
     }
 }
 
-async function cd(path) {
+async function cd(args) {
     try {
+        if (args.length !== 1) throw new Error("Invalid input!");
         // const newPath = path.length === 2 && path.slice(-1) === ":" ? path + "/" : path;
-        const filePath = resolve(path);
+        const filePath = resolve(args[0]);
         chdir(filePath);
         showDirectory();
     } catch (e) {

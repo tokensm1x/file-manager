@@ -33,7 +33,6 @@ async function add(path) {
         log.showText("File created!");
         showDirectory();
     } catch (e) {
-        console.log(e);
         throw new Error("Operation failed");
     } finally {
         file?.close();
@@ -70,7 +69,6 @@ async function rm(path_to_delete) {
         log.showText("File deleted!");
         showDirectory();
     } catch (e) {
-        console.log(e);
         throw new Error("Operation failed");
     }
 }
