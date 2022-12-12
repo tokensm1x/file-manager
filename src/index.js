@@ -1,10 +1,24 @@
 import { exit, chdir } from "process";
-import { showDirectory } from "./src/helpers/showCurrentDirectory.js";
+import { showDirectory } from "./helpers/show-current-directory.js";
 import readline from "readline";
 import { homedir } from "os";
-import { handleOs, calcHash, up, cd, ls, cat, add, rn, rm } from "./src/handlers/index.js";
-import { commands } from "./src/helpers/constants.js";
-import { log } from "./src/helpers/logs.js";
+import { commands } from "./helpers/constants.js";
+import { log } from "./helpers/logs.js";
+import {
+    os as handleOs,
+    hash as calcHash,
+    up as handleUp,
+    cd as handleCd,
+    ls as handleLs,
+    cat as readFile,
+    add as addFile,
+    rn as renameFile,
+    rm as removeFile,
+    cp as copyFile,
+    mv as moveFile,
+    compressFile,
+    decompressFile,
+} from "./handlers/index.js";
 
 const username =
     process.argv.splice(2).reduce((acc, el) => {
@@ -16,6 +30,7 @@ const username =
 chdir(homedir());
 
 log.showMessage(`Welcome to the File Manager, ${username}!`);
+
 showDirectory();
 
 const rl = readline.createInterface({
@@ -30,41 +45,43 @@ const handleLine = async (line) => {
     try {
         switch (currentCommand) {
             case commands.up: {
-                await up();
+                await handleUp();
                 break;
             }
             case commands.cd: {
-                await cd(args.join());
+                await handleCd(args.join());
                 break;
             }
             case commands.ls: {
-                await ls();
+                await handleLs();
                 break;
             }
             case commands.cat: {
-                await cat(args.join());
+                await readFile(args.join());
                 break;
             }
             case commands.add: {
-                await add(args.join());
+                await addFile(args.join());
                 break;
             }
             case commands.rn: {
-                await rn(args);
+                await renameFile(args);
                 break;
             }
             case commands.cp: {
+                await copyFile(args);
                 break;
             }
             case commands.mv: {
+                await moveFile(args);
                 break;
             }
             case commands.rm: {
-                await rm(args.join());
+                await removeFile(args.join());
                 break;
             }
             case commands.hash: {
-                await calcHash(args);
+                await calcHash(args.join(""));
                 break;
             }
             case commands.os: {
@@ -72,9 +89,11 @@ const handleLine = async (line) => {
                 break;
             }
             case commands.compress: {
+                await compressFile(args);
                 break;
             }
             case commands.decompress: {
+                await decompressFile(args);
                 break;
             }
             default: {

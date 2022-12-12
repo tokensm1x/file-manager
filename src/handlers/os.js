@@ -1,8 +1,8 @@
 import { cpus, homedir, arch, EOL, userInfo } from "os";
-import { showDirectory } from "../helpers/showCurrentDirectory.js";
+import { showDirectory } from "../helpers/show-current-directory.js";
 import { log } from "../helpers/logs.js";
 
-export async function handleOs(args) {
+export async function os(args) {
     const data = args[0];
     if (args.length !== 1) throw new Error("Invalid input!");
     switch (data) {
