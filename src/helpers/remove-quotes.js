@@ -1,5 +1,5 @@
 export function removeQuotes(line) {
-    let str = line.split(" ").splice(1).join(" ");
+    let str = line.split(" ").splice(1).join(" ").trim();
     let originalString = str;
     if (!str.length) return [];
     if ((str.match(/"/g) || []).length > 1) {
