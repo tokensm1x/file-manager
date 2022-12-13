@@ -3,8 +3,8 @@ import { showDirectory } from "../helpers/show-current-directory.js";
 import { log } from "../helpers/logs.js";
 
 export async function os(args) {
-    const data = args[0];
     if (args.length !== 1) throw new Error("Invalid input!");
+    const data = args[0];
     switch (data) {
         case "--EOL": {
             log.showText(`EOL: ${JSON.stringify(EOL)}`);

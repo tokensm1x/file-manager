@@ -21,7 +21,6 @@ export async function handleLine(line, rl) {
     if (line.trim() === ".exit") return rl.close();
     const currentCommand = line.split(" ")[0];
     const args = removeQuotes(line);
-    console.log(args);
     try {
         switch (currentCommand) {
             case commands.up: {
@@ -73,7 +72,7 @@ export async function handleLine(line, rl) {
                 break;
             }
             case commands.decompress: {
-                decompressFile(args);
+                await decompressFile(args);
                 break;
             }
             default: {

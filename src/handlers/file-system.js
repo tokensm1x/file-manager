@@ -25,10 +25,11 @@ async function ls() {
     }
 }
 
-async function add(path) {
+async function add(args) {
+    if (args.length !== 1) throw new Error("Invalid input!");
     let file;
     try {
-        const newPath = resolve(path);
+        const newPath = resolve(args[0]);
         file = await open(newPath, "w");
         log.showText("File created!");
         showDirectory();
@@ -39,9 +40,10 @@ async function add(path) {
     }
 }
 
-async function cat(path) {
+async function cat(args) {
+    if (args.length !== 1) throw new Error("Invalid input!");
     try {
-        const newPath = resolve(path);
+        const newPath = resolve(args[0]);
         const readStream = createReadStream(newPath);
         let readContent = "";
 
@@ -62,9 +64,10 @@ async function cat(path) {
     }
 }
 
-async function rm(path_to_delete) {
+async function rm(args) {
+    if (args.length !== 1) throw new Error("Invalid input!");
     try {
-        const path = resolve(path_to_delete);
+        const path = resolve(args[0]);
         await unlink(path);
         log.showText("File deleted!");
         showDirectory();
@@ -74,18 +77,21 @@ async function rm(path_to_delete) {
 }
 
 async function rn(args) {
+    if (args.length !== 2) throw new Error("Invalid input!");
     try {
         const path = resolve(args[0]);
-        const fileName = args[1];
-        await rename(path, fileName);
+        const filePath = resolve(parse(path).dir, args[1]);
+        await rename(path, filePath);
         log.showText("File renamed!");
         showDirectory();
     } catch (e) {
+        console.log(e);
         throw new Error("Operation failed");
     }
 }
 
 async function cp(args) {
+    if (args.length !== 2) throw new Error("Invalid input!");
     try {
         const path = resolve(args[0]);
         const folderPath = resolve(args[1], parse(path).base);
@@ -96,11 +102,13 @@ async function cp(args) {
         log.showText("File copied!");
         showDirectory();
     } catch (e) {
+        console.log(e);
         throw new Error("Operation failed");
     }
 }
 
 async function mv(args) {
+    if (args.length !== 2) throw new Error("Invalid input!");
     try {
         const path = resolve(args[0]);
         const folderPath = resolve(args[1], parse(path).base);

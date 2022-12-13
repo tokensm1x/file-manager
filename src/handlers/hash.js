@@ -5,8 +5,8 @@ import { createHash } from "crypto";
 import { createReadStream } from "fs";
 
 export async function hash(args) {
-    const filePath = resolve(args);
-    if (args.length < 1) throw new Error("Invalid arguments!");
+    if (args.length !== 1) throw new Error("Invalid input!");
+    const filePath = resolve(args[0]);
     try {
         const readStream = createReadStream(filePath);
         let readContent = "";
