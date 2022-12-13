@@ -85,7 +85,6 @@ async function rn(args) {
         log.showText("File renamed!");
         showDirectory();
     } catch (e) {
-        console.log(e);
         throw new Error("Operation failed");
     }
 }
@@ -102,7 +101,6 @@ async function cp(args) {
         log.showText("File copied!");
         showDirectory();
     } catch (e) {
-        console.log(e);
         throw new Error("Operation failed");
     }
 }
